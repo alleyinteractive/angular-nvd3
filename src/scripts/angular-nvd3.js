@@ -1,23 +1,33 @@
 'use strict';
 
 angular
-  .module('angular-nvd3', []);
+  .module('angularNvd3', []);
 
-angular.module('angular-nvd3')
-  .directive('nvd3-render',
-    function(loader) {
-
-      return {
+angular.module('angularNvd3')
+  .directive('linechartRender', [
+    function() {
+      var linechart = {
         template: '{{output}}',
         restrict: 'AE',
         scope: {
-          docKey: '@',
-          docData: '@?',
-          docRetrieve: '@?',
+          linechartData: '@',
+          width: '@?',
+          height: '@?',
+          showXAxis: '@?',
+          showYAxis: '@?',
         },
-        link: function postLink(scope) {
+        link: function(scope) {
+          // Set defaults if not set
+          scope.width = scope.width || 'auto';
+          scope.height = scope.height || 'auto';
+          scope.showXAxis = scope.showXAxis || true;
+          scope.showYAxis = scope.showYAxis || true;
+
+          scope.output = 'balls';
 
         }
       };
-    }
+
+      return linechart;
+    }]
   );

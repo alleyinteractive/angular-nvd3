@@ -21,7 +21,7 @@
       <!-- Add your site or application content here -->
 
       <div ng-controller="demoCtrl">
-        <nvd3-render render-data='{{data}}'></nvd3-render>
+        <linechart-render linechart-data='{{data}}'></linechart-render>
       </div>
     </div>
 
@@ -48,18 +48,23 @@
     <script src="bower_components/bootstrap-sass-official/assets/javascripts/bootstrap/popover.js"></script>
     <!-- endbower -->
 
+    <!-- build:js({.tmp,src}) scripts/angular-nvd3-vendor.min.js -->
+    <script src="bower_components/d3/d3.js"></script>
+    <script src="bower_components/nvd3/nv.d3.js"></script>
+    <!-- endbuild -->
+
     <!-- build:js({.tmp,src}) scripts/angular-nvd3.min.js -->
     <script src="scripts/angular-nvd3.js"></script>
     <!-- endbuild -->
 
     <script type="text/javascript">
       angular
-        .module('demoApp', ['angular-nvd3']);
+        .module('demoApp', ['angularNvd3']);
 
       angular.module('demoApp')
         .controller('demoCtrl', ['$scope',
           function($scope) {
-            $scope.data = '';
+            $scope.data = 'test';
           }
         ]);
   </script>
