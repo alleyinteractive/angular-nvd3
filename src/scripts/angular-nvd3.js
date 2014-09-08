@@ -7,34 +7,43 @@ angular
  * Loads the nvd3 minified js
  */
 angular.module('angularNvd3')
-  .factory('nvd3Service', ['$document', '$q', '$rootScope',
-    function($document, $q, $rootScope) {
+  .factory('nvd3Service', ['$document', '$q', '$rootScope' , 'd3Service',
+    function($document, $q, $rootScope, d3Service) {
+
       var d = $q.defer();
-      /**
-       * Load client in the browser
-       */
-      function onScriptLoad() {
-        $rootScope.$apply(function() { d.resolve(window.nv); });
-      }
 
-      /**
-       * Create a tag with d3 as the source can call onScriptLoad() when it's been loaded;
-       */
-      var scriptTag = $document[0].createElement('script');
-      scriptTag.type = 'text/javascript';
-      scriptTag.async = true;
-      scriptTag.src = '//cdnjs.cloudflare.com/ajax/libs/nvd3/1.1.15-beta/nv.d3.min.js';
-      scriptTag.onreadystagechange = function() {
-        if (this.readyState === 'complete') {
-          onScriptLoad();
+      d3Service.d3().then(function(d3) {
+        /**
+         * Load client in the browser
+         */
+        function onScriptLoad() {
+          $rootScope.$apply(function() {
+            d.resolve({
+              nv: window.nv,
+              d3: window.d3
+            });
+          });
         }
-      };
 
-      scriptTag.onload = onScriptLoad;
+        /**
+         * Create a tag with d3 as the source can call onScriptLoad() when it's been loaded;
+         */
+        var scriptTag = $document[0].createElement('script');
+        scriptTag.type = 'text/javascript';
+        scriptTag.async = true;
+        scriptTag.src = '//cdnjs.cloudflare.com/ajax/libs/nvd3/1.1.15-beta/nv.d3.min.js';
+        scriptTag.onreadystagechange = function() {
+          if (this.readyState === 'complete') {
+            onScriptLoad();
+          }
+        };
 
-      var s = $document[0].getElementsByTagName('body')[0];
-      s.appendChild(scriptTag);
+        scriptTag.onload = onScriptLoad;
 
+        var s = $document[0].getElementsByTagName('body')[0];
+        s.appendChild(scriptTag);
+
+      });
       return {
         nvd3: function() { return d.promise; }
       };
@@ -45,8 +54,8 @@ angular.module('angularNvd3')
  * Directive for linechart render
  */
 angular.module('angularNvd3')
-  .directive('linechartRender', [ 'd3Service', 'nvd3Service',
-    function(d3Service, nvd3Service) {
+  .directive('linechartRender', [ 'nvd3Service',
+    function(nvd3Service) {
       var linechart = {
         template: '<svg></svg>',
         restrict: 'AE',
@@ -108,11 +117,8 @@ angular.module('angularNvd3')
           /**
            * Promise to run if library files load
            */
-          d3Service.d3().then(function(d3) {
-            console.log(d3);
-            nvd3Service.nvd3().then(function(nv) {
-              console.log(nv);
-            });
+          nvd3Service.nvd3().then(function(nvd3) {
+            console.log(nvd3);
           });
 
           scope.output = 'Si';
