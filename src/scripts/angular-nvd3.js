@@ -53,11 +53,11 @@ angular.module('angularNvd3')
         template: '<svg></svg>',
         restrict: 'AE',
         scope: {
-          data: '@',      // chart data, [required]
-          options: '@?',  // chart options, according to nvd3 core api, [optional]
-          api: '@?',      // directive global api, [optional]
-          events: '@?',   // global events taht directive would subscribe to, [optional]
-          config: '@?',   // global directive configuration, [optional]
+          data: '=',      // chart data, [required]
+          options: '=?',  // chart options, according to nvd3 core api, [optional]
+          api: '=?',      // directive global api, [optional]
+          events: '=?',   // global events taht directive would subscribe to, [optional]
+          config: '=?',   // global directive configuration, [optional]
         },
         link: function(scope, element) {
 
@@ -131,6 +131,8 @@ angular.module('angularNvd3')
              */
             scope.api = {
               refresh: function() {
+                console.log(scope.options);
+                console.log(scope.options.chart.type);
                 scope.api.updateWithOptions(scope.options);
               },
 
@@ -194,11 +196,11 @@ angular.module('angularNvd3')
                       'controls'
                   ].indexOf(key) >= 0) {
                     if (options.chart[key] === undefined || options.chart[key] === null) {
-                      if (config.extended) {
+                      if (scope._config.extended) {
                         options.chart[key] = {};
                       }
                     }
-                    configure(hart[key], options.chart[key], options.chart.type);
+                    configure(scope.chart[key], options.chart[key], options.chart.type);
                   }
 
                   else if (// TODO: need to fix bug in nvd3
