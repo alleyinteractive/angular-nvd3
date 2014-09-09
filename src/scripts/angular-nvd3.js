@@ -249,7 +249,6 @@ angular.module('angularNvd3')
                   configureWrapper('caption');
                 }
 
-
                 // Configure styles
                 if (scope.options.styles || scope._config.extended) {
                   configureStyles();
