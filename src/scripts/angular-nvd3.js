@@ -119,7 +119,7 @@ angular.module('angularNvd3')
 
             // Setup defaults
             scope._config = angular.extend(defaultConfig, scope.config);
-            scope._options = angular.extend(defaultOptions, scope.options);
+            scope.options = (scope.options) ? scope.options : defaultOptions;
 
             /**
              * Directive global api
@@ -142,7 +142,7 @@ angular.module('angularNvd3')
                 scope.api.clearElement();
 
                 // Exit if options are undefined
-                if(angular.isDefined(scope._options) === false) { return false; }
+                if(angular.isDefined(options) === false) { return false; }
 
                 // Exit if chart is hidden
                 if(!scope._config.visible) { return false; }
@@ -155,12 +155,12 @@ angular.module('angularNvd3')
                   if (key === 'options') {}
 
                   else if (key === 'dispatch') {
-                    if (scope._options.chart[key] === undefined || scope._options.chart[key] === null) {
+                    if (options.chart[key] === undefined || options.chart[key] === null) {
                       if (scope._config.extended) {
-                        scope._options.chart[key] = {};
+                        options.chart[key] = {};
                       }
                     }
-                    configureEvents(scope.chart[key], scope._options.chart[key]);
+                    configureEvents(scope.chart[key], options.chart[key]);
                   }
 
                   else if ([
@@ -193,45 +193,45 @@ angular.module('angularNvd3')
                       'interactiveLayer',
                       'controls'
                   ].indexOf(key) >= 0) {
-                    if (scope._options.chart[key] === undefined || scope._options.chart[key] === null) {
-                      if (scope._config.extended) {
-                        scope._options.chart[key] = {};
+                    if (options.chart[key] === undefined || options.chart[key] === null) {
+                      if (config.extended) {
+                        options.chart[key] = {};
                       }
                     }
-                    configure(scope.chart[key], scope._options.chart[key], scope._options.chart.type);
+                    configure(hart[key], options.chart[key], options.chart.type);
                   }
 
                   else if (// TODO: need to fix bug in nvd3
-                    (key ==='clipEdge' && scope._options.chart.type === 'multiBarHorizontalChart') ||
-                    (key === 'clipVoronoi' && scope._options.chart.type === 'historicalBarChart') ||
-                    (key === 'color' && scope._options.chart.type === 'indentedTreeChart') ||
-                    (key === 'defined' && (scope._options.chart.type === 'historicalBarChart' ||
-                      scope._options.chart.type === 'cumulativeLineChart' ||
-                      scope._options.chart.type === 'lineWithFisheyeChart')) ||
-                    (key === 'forceX' && (scope._options.chart.type === 'multiBarChart' ||
-                      scope._options.chart.type === 'discreteBarChart' ||
-                      scope._options.chart.type === 'multiBarHorizontalChart')) ||
-                    (key === 'interpolate' && scope._options.chart.type === 'historicalBarChart') ||
-                    (key === 'isArea' && scope._options.chart.type === 'historicalBarChart') ||
-                    (key === 'size' && scope._options.chart.type === 'historicalBarChart') ||
-                    (key === 'stacked' && scope._options.chart.type === 'stackedAreaChart') ||
-                    (key === 'values' && scope._options.chart.type === 'pieChart') ||
-                    (key === 'xScale' && scope._options.chart.type === 'scatterChart') ||
-                    (key === 'yScale' && scope._options.chart.type === 'scatterChart') ||
-                    (key === 'x' && (scope._options.chart.type === 'lineWithFocusChart' ||
-                      scope._options.chart.type === 'multiChart')) ||
-                    (key === 'y' && scope._options.chart.type === 'lineWithFocusChart' ||
-                      scope._options.chart.type === 'multiChart')
+                    (key ==='clipEdge' && scope.options.chart.type === 'multiBarHorizontalChart') ||
+                    (key === 'clipVoronoi' && scope.options.chart.type === 'historicalBarChart') ||
+                    (key === 'color' && scope.options.chart.type === 'indentedTreeChart') ||
+                    (key === 'defined' && (scope.options.chart.type === 'historicalBarChart' ||
+                      scope.options.chart.type === 'cumulativeLineChart' ||
+                      scope.options.chart.type === 'lineWithFisheyeChart')) ||
+                    (key === 'forceX' && (scope.options.chart.type === 'multiBarChart' ||
+                      scope.options.chart.type === 'discreteBarChart' ||
+                      scope.options.chart.type === 'multiBarHorizontalChart')) ||
+                    (key === 'interpolate' && scope.options.chart.type === 'historicalBarChart') ||
+                    (key === 'isArea' && scope.options.chart.type === 'historicalBarChart') ||
+                    (key === 'size' && scope.options.chart.type === 'historicalBarChart') ||
+                    (key === 'stacked' && scope.options.chart.type === 'stackedAreaChart') ||
+                    (key === 'values' && scope.options.chart.type === 'pieChart') ||
+                    (key === 'xScale' && scope.options.chart.type === 'scatterChart') ||
+                    (key === 'yScale' && scope.options.chart.type === 'scatterChart') ||
+                    (key === 'x' && (scope.options.chart.type === 'lineWithFocusChart' ||
+                      scope.options.chart.type === 'multiChart')) ||
+                    (key === 'y' && scope.options.chart.type === 'lineWithFocusChart' ||
+                      scope.options.chart.type === 'multiChart')
                   ) {}
 
-                  else if (scope._options.chart[key] === undefined || scope._options.chart[key] === null) {
+                  else if (scope.options.chart[key] === undefined || scope.options.chart[key] === null) {
                     if (scope._config.extended) {
-                      scope._options.chart[key] = value();
+                      scope.options.chart[key] = value();
                     }
                   }
 
                   else {
-                    scope.chart[key](scope._options.chart[key]);
+                    scope.chart[key](scope.options.chart[key]);
                   }
                 });
 
@@ -239,19 +239,19 @@ angular.module('angularNvd3')
                 scope.api.updateWithData(scope.data);
 
                 // Configure wrappers
-                if (scope._options.title || scope._config.extended) {
+                if (scope.options.title || scope._config.extended) {
                   configureWrapper('title');
                 }
-                if (scope._options.subtitle || scope._config.extended) {
+                if (scope.options.subtitle || scope._config.extended) {
                   configureWrapper('subtitle');
                 }
-                if (scope._options.caption || scope._config.extended) {
+                if (scope.options.caption || scope._config.extended) {
                   configureWrapper('caption');
                 }
 
 
                 // Configure styles
-                if (scope._options.styles || scope._config.extended) {
+                if (scope.options.styles || scope._config.extended) {
                   configureStyles();
                 }
 
@@ -261,27 +261,27 @@ angular.module('angularNvd3')
                     scope.chart.update();
                   });
                   return scope.chart;
-                }, scope._options.chart.callback);
+                }, scope.options.chart.callback);
               }, //updateWithOptions()
 
               updateWithData: function(data) {
                 if (data) {
-                  scope._options.chart.transitionDuration = parseInt(scope._options.chart.transitionDuration, 10) || 250;
+                  scope.options.chart.transitionDuration = parseInt(scope.options.chart.transitionDuration, 10) || 250;
                   // remove whole svg element with old data
                   d3.select(element[0]).select('svg').remove();
 
                   // Select the current element to add <svg> element and to render the chart in
                   d3.select(element[0]).append('svg')
-                    .attr('height', scope._options.chart.height)
-                    .attr('width', scope._options.chart.width)
+                    .attr('height', scope.options.chart.height)
+                    .attr('width', scope.options.chart.width)
                     .datum(data)
-                    .transition().duration(scope._options.chart.transitionDuration)
+                    .transition().duration(scope.options.chart.transitionDuration)
                     .call(scope.chart);
 
                   // Set up svg height and width. It is important for all browsers...
-                  d3.select(element[0]).select('svg')[0][0].style.height = scope._options.chart.height + 'px';
-                  d3.select(element[0]).select('svg')[0][0].style.width = scope._options.chart.width + 'px';
-                  if (scope._options.chart.type === 'multiChart') {
+                  d3.select(element[0]).select('svg')[0][0].style.height = scope.options.chart.height + 'px';
+                  d3.select(element[0]).select('svg')[0][0].style.width = scope.options.chart.width + 'px';
+                  if (scope.options.chart.type === 'multiChart') {
                     // multiChart is not automatically updated
                     scope.chart.update();
                   }
@@ -353,10 +353,10 @@ angular.module('angularNvd3')
              * nvd3 has no sufficient models for it yet.
              */
             function configureWrapper(name) {
-                var _ = extendDeep(defaultWrapper(name), scope._options[name] || {});
+                var _ = extendDeep(defaultWrapper(name), scope.options[name] || {});
 
                 if (scope._config.extended) {
-                  scope._options[name] = _;
+                  scope.options[name] = _;
                 }
 
                 var wrapElement = angular.element('<div></div>').html(_.html || '')
@@ -383,10 +383,10 @@ angular.module('angularNvd3')
 
             // Add some styles to the whole directive element
             function configureStyles() {
-              var _ = extendDeep(defaultStyles(), scope._options.styles || {});
+              var _ = extendDeep(defaultStyles(), scope.options.styles || {});
 
               if (scope._config.extended) {
-                scope._options.styles = _;
+                scope.options.styles = _;
               }
 
               angular.forEach(_.classes, function(value, key) {
