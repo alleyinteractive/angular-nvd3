@@ -1,23 +1,24 @@
 'use strict';
 
-describe('Module: Angular-Gdocs-Loader', function () {
+describe('Module: Angular-NVD3', function () {
 
   var $compile,
       $rootScope;
 
-  // beforeEach(module('angular-gdocs-loader'));
+  beforeEach(module('angularNvd3'));
 
-  // beforeEach(inject(function(_$compile_, _$rootScope_) {
-  //   $compile = _$compile_;
-  //   $rootScope = _$rootScope_;
-  // }));
+  beforeEach(inject(function(_$compile_, _$rootScope_) {
+    $compile = _$compile_;
+    $rootScope = _$rootScope_;
+  }));
 
-  // it('Fails on no data', function() {
-  //   var element = $compile("<gdocs-loader doc-key='' doc-data='' doc-retrieve=''></gdocs-loader>")($rootScope);
+  it('Fails on no data', function() {
+    var element = $compile('<chart-render data="" options=""></chart-render>')($rootScope);
 
-  //   $rootScope.$digest();
+    $rootScope.$digest();
+    expect(element.html()).to.eql('<svg></svg>');
+    // @@TODO: Add Error states
+  });
 
-  //   expect(element.html()).to.eql('Error: No key or data given');
-  // });
 
 });

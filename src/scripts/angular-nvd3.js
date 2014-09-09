@@ -60,7 +60,6 @@ angular.module('angularNvd3')
           config: '=?',   // global directive configuration, [optional]
         },
         link: function(scope, element) {
-
           // Promise to run if library files load
           nvd3Service.nvd3().then(function(nvd3) {
             // Set Vars
@@ -131,8 +130,6 @@ angular.module('angularNvd3')
              */
             scope.api = {
               refresh: function() {
-                console.log(scope.options);
-                console.log(scope.options.chart.type);
                 scope.api.updateWithOptions(scope.options);
               },
 
@@ -467,6 +464,7 @@ angular.module('angularNvd3')
               }
             }, true);
             scope.$watch('data', function(){
+
               if (!scope._config.disabled && scope._config.autorefresh) {
 
                 // if wanted to refresh data only, use chart.update method, otherwise use full refresh.
