@@ -44,10 +44,11 @@ angular.module('angularNvd3')
     }]
   ); // end nvd3Service
 
-// Directive for linechart render
+// Directive for nvd3 render
 angular.module('angularNvd3')
-  .directive('chartRender', [ 'nvd3Service',
+  .directive('chartRender', ['nvd3Service',
     function(nvd3Service) {
+
       // Usage Functions
       var chartRender = {
         template: '<svg></svg>',

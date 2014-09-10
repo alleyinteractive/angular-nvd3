@@ -16,7 +16,7 @@ describe('Module: Angular-NVD3', function () {
     elm = compile(template || validTemplate)(scope);
 
     // Trigger watchers
-    // scope.$apply();
+    scope.$apply();
 
     return elm;
   }
@@ -75,7 +75,6 @@ describe('Module: Angular-NVD3', function () {
 
 
   it('Fails on no data', function() {
-
     element = createDirective('');
     expect(element.html()).to.eql('<svg></svg>');
   });
@@ -87,12 +86,12 @@ describe('Module: Angular-NVD3', function () {
     expect(invalidTemplate).to.throw();
   });
 
-  // it('Success on proper data & options', function() {
-  //   element = createDirective();
-  //   console.log(element);
-  //   expect(element.html()).not.to.eql('<svg></svg>');
-  //   // @@TODO: Add Error states
-  // });
+  it('Success on proper data & options', function() {
+    element = createDirective();
+    console.log(element);
+    expect(element.html()).not.to.eql('<svg></svg>');
+    // @@TODO: Add Error states
+  });
 
 
 });
