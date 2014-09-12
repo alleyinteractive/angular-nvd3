@@ -21,9 +21,10 @@
     <div ng-app="demoApp" class="container">
       <!-- Add your site or application content here -->
 
-      <div ng-controller="demoCtrl">
+      <div ng-controller="demoCtrl1">
         <chart-render data='data' options='options'></chart-render>
       </div>
+
     </div>
 
     <!--[if lt IE 9]>
@@ -52,6 +53,8 @@
     <!-- build:js({.tmp,src}) scripts/angular-nvd3.min.js -->
     <script src="scripts/angular-d3.js"></script>
     <script src="scripts/angular-nvd3.js"></script>
+    <script src="scripts/angular-nvd3-service.js"></script>
+    <script src="scripts/angular-nvd3-directive.js"></script>
     <!-- endbuild -->
 
     <script type="text/javascript">
@@ -59,11 +62,11 @@
             .module('demoApp', ['angularNvd3']);
 
         angular.module('demoApp')
-            .controller('demoCtrl', ['$scope',
+            .controller('demoCtrl1', ['$scope',
                 function($scope) {
                     $scope.options = {
                         chart: {
-                            type: 'discreteBarChart',
+                            type: 'lineChart',
                             height: 450,
                             margin : {
                                 top: 20,
@@ -71,35 +74,100 @@
                                 bottom: 60,
                                 left: 55
                             },
-                            x: function(d){ return d.label; },
-                            y: function(d){ return d.value; },
+                            x: function(d){ return d.x; },
+                            y: function(d){ return d.y; },
                             showValues: true,
                             valueFormat: function(d){
                                 return d3.format(',.4f')(d);
                             },
+                            tooltipContent: function(key, x, y, e, chart) {
+                                var d = e.series.values[e.pointIndex];
+                                return d.state + ' - ' + d.char_label + ': ' + d.formatted;
+                            },
                             transitionDuration: 500,
                             xAxis: {
-                                axisLabel: 'X Axis'
+                                tickFormat: function(d) {
+                                    return d3.time.format('%y')(new Date(d, 1, 1));
+                                },
+                                tickValues: ["1991", "1992", "1993", "1994", "1995", "1996", "1997", "1998"]
                             },
                             yAxis: {
-                                axisLabel: 'Y Axis',
-                                axisLabelDistance: 30
+                                ticks: 20,
+                                tickFormat: function(d){
+                                    return d3.format('d')(d);
+                                },
+                                axisLabelDistance: 20
                             }
                         }
                     };
-                    $scope.data = [{
-                        key: "Cumulative Return",
+                    $scope.data = [
+                      {
+                        key: "Arkansas",
                         values: [
-                            { "label" : "A" , "value" : -29.765957771107 },
-                            { "label" : "B" , "value" : 0 },
-                            { "label" : "C" , "value" : 32.807804682612 },
-                            { "label" : "D" , "value" : 196.45946739256 },
-                            { "label" : "E" , "value" : 'NA' },
-                            { "label" : "F" , "value" : -98.079782601442 },
-                            { "label" : "G" , "value" : -13.925743130903 },
-                            { "label" : "H" , "value" : -5.1387322875705 }
+                          {
+                            x: "1991",
+                            y: "93",
+                            char_label: "Dental Services",
+                            formatted: "$93",
+                            state: "Arkansas"
+                          },
+                          {
+                            x: "1992",
+                            y: "103",
+                            char_label: "Dental Services",
+                            formatted: "$103",
+                            state: "Arkansas"
+                          },
+                          {
+                            x: "1993",
+                            y: "107",
+                            char_label: "Dental Services",
+                            formatted: "$107",
+                            state: "Arkansas"
+                          },
+                          {
+                            x: "1994",
+                            y: "114",
+                            char_label: "Dental Services",
+                            formatted: "$114",
+                            state: "Arkansas"
+                          },
+                          {
+                            x: "1995",
+                            y: "128",
+                            char_label: "Dental Services",
+                            formatted: "$128",
+                            state: "Arkansas"
+                          },
+                          {
+                            x: "1996",
+                            y: "136",
+                            char_label: "Dental Services",
+                            formatted: "$136",
+                            state: "Arkansas"
+                          },
+                          {
+                            x: "1997",
+                            y: "143",
+                            char_label: "Dental Services",
+                            formatted: "$143",
+                            state: "Arkansas"
+                          },
+                          {
+                            x: "1998",
+                            y: "144",
+                           char_label: "Dental Services",
+                           formatted: "$144",
+                            state: "Arkansas"
+                          }
                         ]
-                    }];
+                      }
+                    ]
+                }
+            ])
+
+            .controller('demoCtrl2', ['$scope',
+                function($scope) {
                 }
             ]);
   </script>
