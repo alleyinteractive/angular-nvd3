@@ -36,50 +36,8 @@ angular.module('angularNvd3')
               refreshDataOnly: false
             };
 
-            // Default Options
-            var defaultOptions = {
-              chart: {
-                type: 'lines',
-                height: 450,
-                margin : {
-                    top: 20,
-                    right: 20,
-                    bottom: 60,
-                    left: 55
-                },
-                x: function(d) { return d.label; },
-                y: function(d) { return d.value; },
-                showValues: true,
-                valueFormat: function(d) {
-                    return d3.format(',.4f')(d);
-                },
-                tooltips: true,
-                /**
-                 * Set tooltip contents
-                 * @param  {[type]} key   [description]
-                 * @param  {number} x     [X-Coordinate]
-                 * @param  {number} y     [Y-Coordinate]
-                 * @param  {[type]} e     [description]
-                 * @param  {[type]} graph [description]
-                 * @return {string}       [Tooltip Text]
-                 */
-                tooltipContent: function(key, x, y) {
-                  return '<h4>'+key+'</h4>' + '<p>' + y + ' on ' + x + '</p>';
-                },
-                transitionDuration: 500,
-                xAxis: {
-                    axisLabel: 'X Axis',
-                },
-                yAxis: {
-                    axisLabel: 'Y Axis',
-                    axisLabelDistance: 400
-                }
-              }
-            }; //defualtOptions
-
             // Setup defaults
             scope._config = angular.extend(defaultConfig, scope.config);
-            scope.options = (scope.options) ? scope.options : defaultOptions;
 
             /**
              * Directive global api
