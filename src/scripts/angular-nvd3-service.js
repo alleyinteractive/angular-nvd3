@@ -39,34 +39,4 @@ angular.module('angularNvd3')
         nvd3: function() { return d.promise; }
       };
     }]
-  ) // end nvd3Service
-
-  .service('nvd3Cleaner', [
-    function() {
-
-      // Flags for service
-      this.percent = null;
-      this.currency = null;
-
-      /**
-       * Check if data is a percent, if it is, it will
-       * parse the data out and set the percent flag
-       * @param  {string} data [string to check]
-       * @return {float}      [number parsed out of string]
-       */
-      this.percentCheck = function(data) {
-
-      };
-
-      /**
-       * Check if data is currency, if it is, it will
-       * parse the data out and set the percent flag
-       * @param  {string} data [string to check]
-       * @return {float}      [number parsed out of string]
-       */
-      this.currency = function(data) {
-
-      };
-
-    }]
   );
