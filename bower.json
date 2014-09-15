@@ -1,8 +1,6 @@
 {
   "name": "angular-nvd3",
   "version": "0.0.0",
-  "dependencies": {
-  },
   "devDependencies": {
     "angular-mocks": "1.2.16",
     "angular-scenario": "1.2.16",
