@@ -5,31 +5,6 @@ angular.module('d3', [])
     function($document, $q, $rootScope) {
       var d = $q.defer();
 
-      // /**
-      //  * Load client in the browser
-      //  */
-      // function onScriptLoad() {
-      //   $rootScope.$apply(function() { d.resolve(window.d3); });
-      // }
-
-      // /**
-      //  * Create a tag with d3 as the source can call onScriptLoad() when it's been loaded;
-      //  */
-      // var scriptTag = $document[0].createElement('script');
-      // scriptTag.type = 'text/javascript';
-      // scriptTag.async = true;
-      // scriptTag.src = 'http://d3js.org/d3.v3.min.js';
-      // scriptTag.onreadystagechange = function() {
-      //   if (this.readyState === 'complete') {
-      //     onScriptLoad();
-      //   }
-      // };
-
-      // scriptTag.onload = onScriptLoad;
-
-      // var s = $document[0].getElementsByTagName('body')[0];
-      // s.appendChild(scriptTag);
-
       d.resolve(window.d3);
 
       return {
