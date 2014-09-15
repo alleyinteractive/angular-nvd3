@@ -16,5 +16,11 @@
   "dependencies": {
     "nvd3": "~1.1.15-beta",
     "d3": "~3.4.11"
-  }
+  },
+  "ignore": [
+    "Gruntfile.js",
+    "package.json",
+    ".jshintrc",
+    "test"
+  ]
 }
