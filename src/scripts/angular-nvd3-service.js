@@ -2,8 +2,8 @@
 
 // Loads the nvd3 minified js
 angular.module('angularNvd3')
-  .factory('nvd3Service', ['$document', '$q', '$rootScope' , 'd3Service',
-    function($document, $q, $rootScope, d3Service) {
+  .factory('nvd3Service', ['$document', '$q' , 'd3Service',
+    function($document, $q, d3Service) {
 
       var d = $q.defer();
 
