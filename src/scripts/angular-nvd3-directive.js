@@ -60,10 +60,14 @@ angular.module('angularNvd3')
                 scope.api.clearElement();
 
                 // Exit if options are undefined
-                if(angular.isDefined(options) === false) { return false; }
+                if(angular.isDefined(options) === false) {
+                  return false;
+                }
 
                 // Exit if chart is hidden
-                if(!scope._config.visible) { return false; }
+                if(!scope._config.visible) {
+                  return false;
+                }
 
                 // Init chart
                 scope.chart = nv.models[options.chart.type]();
