@@ -1,0 +1,26 @@
+{
+  "name": "angular-nvd3",
+  "version": "0.0.0",
+  "devDependencies": {
+    "angular": "^1.2.16",
+    "angular-mocks": "^1.2.16",
+    "angular-scenario": "^1.2.16",
+    "json3": "~3.3.1",
+    "es5-shim": "~3.1.0",
+    "bootstrap-sass-official": "~3.2.0"
+  },
+  "appPath": "app",
+  "resolutions": {
+    "d3": "~3.3.13"
+  },
+  "dependencies": {
+    "nvd3": "~1.1.15-beta",
+    "d3": "~3.4.11"
+  },
+  "ignore": [
+    "Gruntfile.js",
+    "package.json",
+    ".jshintrc",
+    "test"
+  ]
+}

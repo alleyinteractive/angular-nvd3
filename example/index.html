@@ -1,0 +1,114 @@
+<!doctype html>
+<html class="no-js">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width">
+    <link rel="stylesheet" type="text/css" href="bower_components/nvd3/nv.d3.min.css">
+    <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+    <!-- bower:css -->
+    <link rel="stylesheet" href="bower_components/nvd3/src/nv.d3.css" />
+    <!-- endbower -->
+
+
+  </head>
+  <body>
+    <!--[if lt IE 7]>
+      <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+    <![endif]-->
+
+    <!-- Add your site or application content here -->
+    <div ng-app="demoApp" class="container">
+      <!-- Add your site or application content here -->
+
+      <div ng-controller="demoCtrl1">
+        <chart-render data='data' options='options'></chart-render>
+      </div>
+
+    </div>
+
+    <!--[if lt IE 9]>
+    <script src="bower_components/es5-shim/es5-shim.js"></script>
+    <script src="bower_components/json3/lib/json3.min.js"></script>
+    <![endif]-->
+
+    <!-- bower:js -->
+    <script src="bower_components/jquery/dist/jquery.js"></script>
+    <script src="bower_components/d3/d3.js"></script>
+    <script src="bower_components/nvd3/nv.d3.js"></script>
+    <script src="bower_components/angular/angular.js"></script>
+    <script src="bower_components/angular-mocks/angular-mocks.js"></script>
+    <script src="bower_components/angular-scenario/angular-scenario.js"></script>
+    <script src="bower_components/json3/lib/json3.js"></script>
+    <script src="bower_components/bootstrap-sass-official/assets/javascripts/bootstrap/affix.js"></script>
+    <script src="bower_components/bootstrap-sass-official/assets/javascripts/bootstrap/alert.js"></script>
+    <script src="bower_components/bootstrap-sass-official/assets/javascripts/bootstrap/button.js"></script>
+    <script src="bower_components/bootstrap-sass-official/assets/javascripts/bootstrap/carousel.js"></script>
+    <script src="bower_components/bootstrap-sass-official/assets/javascripts/bootstrap/collapse.js"></script>
+    <script src="bower_components/bootstrap-sass-official/assets/javascripts/bootstrap/dropdown.js"></script>
+    <script src="bower_components/bootstrap-sass-official/assets/javascripts/bootstrap/tab.js"></script>
+    <script src="bower_components/bootstrap-sass-official/assets/javascripts/bootstrap/transition.js"></script>
+    <script src="bower_components/bootstrap-sass-official/assets/javascripts/bootstrap/scrollspy.js"></script>
+    <script src="bower_components/bootstrap-sass-official/assets/javascripts/bootstrap/modal.js"></script>
+    <script src="bower_components/bootstrap-sass-official/assets/javascripts/bootstrap/tooltip.js"></script>
+    <script src="bower_components/bootstrap-sass-official/assets/javascripts/bootstrap/popover.js"></script>
+    <!-- endbower -->
+
+    <!-- build:js({.tmp,src}) scripts/angular-nvd3.min.js -->
+    <script src="scripts/angular-d3.js"></script>
+    <script src="scripts/angular-nvd3.js"></script>
+    <script src="scripts/angular-nvd3-service.js"></script>
+    <script src="scripts/angular-nvd3-directive.js"></script>
+    <!-- endbuild -->
+
+    <script type="text/javascript">
+        angular
+            .module('demoApp', ['angularNvd3']);
+
+        angular.module('demoApp')
+            .controller('demoCtrl1', ['$scope',
+                function($scope) {
+                    $scope.options = {
+                        chart: {
+                            type: 'lineChart',
+                            height: 450,
+                            margin : {
+                                top: 20,
+                                right: 20,
+                                bottom: 60,
+                                left: 55
+                            },
+                            x: function(d){ return d3.format('f')(d.x); },
+                            y: function(d){
+                                var y = (typeof(parseInt(d.y)) === 'number') ? parseInt(d.y) : null;
+                                return y;
+                             },
+                            showValues: true,
+                            valueFormat: function(d){
+                                return d3.format(',.4f')(d);
+                            },
+                            tooltipContent: function(key, x, y, e, chart) {
+                                var d = e.series.values[e.pointIndex];
+                                return d.state + ' - ' + d.char_label + ': ' + d.formatted;
+                            },
+                            transitionDuration: 500,
+                            xAxis: {
+                                tickFormat: function(d) {
+                                    return d3.time.format('%y')(new Date(d, 1, 1));
+                                }
+                            },
+                            yAxis: {
+                                ticks: 5,
+                                tickFormat: function(d){
+                                    return d3.format('d')(d);
+                                },
+                                axisLabelDistance: 20
+                            }
+                        }
+                    };
+                    $scope.data = JSON.parse('[{"values":[{"x":"1991","y":"1092.015","char_label":"Hospital Care","formatted":"$1,092","state":"Alabama"},{"x":"1992","y":"1200.756","char_label":"Hospital Care","formatted":"$1,201","state":"Alabama"},{"x":"1993","y":"1224.961","char_label":"Hospital Care","formatted":"$1,225","state":"Alabama"},{"x":"1994","y":"1257.27","char_label":"Hospital Care","formatted":"$1,257","state":"Alabama"},{"x":"1995","y":"1344.585","char_label":"Hospital Care","formatted":"$1,345","state":"Alabama"},{"x":"1996","y":"1410.638","char_label":"Hospital Care","formatted":"$1,411","state":"Alabama"},{"x":"1997","y":"1404.538","char_label":"Hospital Care","formatted":"$1,405","state":"Alabama"},{"x":"1998","y":"1379.186","char_label":"Hospital Care","formatted":"$1,379","state":"Alabama"},{"x":"1999","y":"1406.973","char_label":"Hospital Care","formatted":"$1,407","state":"Alabama"},{"x":"2000","y":"1448.011","char_label":"Hospital Care","formatted":"$1,448","state":"Alabama"},{"x":"2001","y":"1508.04","char_label":"Hospital Care","formatted":"$1,508","state":"Alabama"},{"x":"2002","y":"1592.976","char_label":"Hospital Care","formatted":"$1,593","state":"Alabama"},{"x":"2003","y":"1684.546","char_label":"Hospital Care","formatted":"$1,685","state":"Alabama"},{"x":"2004","y":"1760.405","char_label":"Hospital Care","formatted":"$1,760","state":"Alabama"},{"x":"2005","y":"1931.579","char_label":"Hospital Care","formatted":"$1,932","state":"Alabama"},{"x":"2006","y":"1996.531","char_label":"Hospital Care","formatted":"$1,997","state":"Alabama"},{"x":"2007","y":"2026.697","char_label":"Hospital Care","formatted":"$2,027","state":"Alabama"},{"x":"2008","y":"2055.615","char_label":"Hospital Care","formatted":"$2,056","state":"Alabama"},{"x":"2009","y":"2110.697","char_label":"Hospital Care","formatted":"$2,111","state":"Alabama"}],"key":"Alabama - Hospital Care"},{"values":[{"x":"1991","y":"49.28","char_label":"Medical Durables","formatted":"$49","state":"Alabama"},{"x":"1992","y":"50.444","char_label":"Medical Durables","formatted":"$50","state":"Alabama"},{"x":"1993","y":"50.324","char_label":"Medical Durables","formatted":"$50","state":"Alabama"},{"x":"1994","y":"52.69","char_label":"Medical Durables","formatted":"$53","state":"Alabama"},{"x":"1995","y":"52.911","char_label":"Medical Durables","formatted":"$53","state":"Alabama"},{"x":"1996","y":"56.675","char_label":"Medical Durables","formatted":"$57","state":"Alabama"},{"x":"1997","y":"60.713","char_label":"Medical Durables","formatted":"$61","state":"Alabama"},{"x":"1998","y":"69.974","char_label":"Medical Durables","formatted":"$70","state":"Alabama"},{"x":"1999","y":"78.342","char_label":"Medical Durables","formatted":"$78","state":"Alabama"},{"x":"2000","y":"88.692","char_label":"Medical Durables","formatted":"$89","state":"Alabama"},{"x":"2001","y":"90.234","char_label":"Medical Durables","formatted":"$90","state":"Alabama"},{"x":"2002","y":"100.581","char_label":"Medical Durables","formatted":"$101","state":"Alabama"},{"x":"2003","y":"99.344","char_label":"Medical Durables","formatted":"$99","state":"Alabama"},{"x":"2004","y":"99.771","char_label":"Medical Durables","formatted":"$100","state":"Alabama"},{"x":"2005","y":"101.227","char_label":"Medical Durables","formatted":"$101","state":"Alabama"},{"x":"2006","y":"102.989","char_label":"Medical Durables","formatted":"$103","state":"Alabama"},{"x":"2007","y":"106.427","char_label":"Medical Durables","formatted":"$106","state":"Alabama"},{"x":"2008","y":"108.485","char_label":"Medical Durables","formatted":"$108","state":"Alabama"},{"x":"2009","y":"107.77","char_label":"Medical Durables","formatted":"$108","state":"Alabama"}],"key":"Alabama - Medical Durables"},{"values":[{"x":"1991","y":"901.559","char_label":"Hospital Care","formatted":"$902","state":"Arizona"},{"x":"1992","y":"937.98","char_label":"Hospital Care","formatted":"$938","state":"Arizona"},{"x":"1993","y":"949.973","char_label":"Hospital Care","formatted":"$950","state":"Arizona"},{"x":"1994","y":"964.065","char_label":"Hospital Care","formatted":"$964","state":"Arizona"},{"x":"1995","y":"955.704","char_label":"Hospital Care","formatted":"$956","state":"Arizona"},{"x":"1996","y":"958.218","char_label":"Hospital Care","formatted":"$958","state":"Arizona"},{"x":"1997","y":"973.393","char_label":"Hospital Care","formatted":"$973","state":"Arizona"},{"x":"1998","y":"1010.326","char_label":"Hospital Care","formatted":"$1,010","state":"Arizona"},{"x":"1999","y":"1026.486","char_label":"Hospital Care","formatted":"$1,026","state":"Arizona"},{"x":"2000","y":"1088.438","char_label":"Hospital Care","formatted":"$1,088","state":"Arizona"},{"x":"2001","y":"1134.751","char_label":"Hospital Care","formatted":"$1,135","state":"Arizona"},{"x":"2002","y":"1263.272","char_label":"Hospital Care","formatted":"$1,263","state":"Arizona"},{"x":"2003","y":"1385.51","char_label":"Hospital Care","formatted":"$1,386","state":"Arizona"},{"x":"2004","y":"1473.051","char_label":"Hospital Care","formatted":"$1,473","state":"Arizona"},{"x":"2005","y":"1673.133","char_label":"Hospital Care","formatted":"$1,673","state":"Arizona"},{"x":"2006","y":"1729.778","char_label":"Hospital Care","formatted":"$1,730","state":"Arizona"},{"x":"2007","y":"1824.327","char_label":"Hospital Care","formatted":"$1,824","state":"Arizona"},{"x":"2008","y":"1909.083","char_label":"Hospital Care","formatted":"$1,909","state":"Arizona"},{"x":"2009","y":"1977.398","char_label":"Hospital Care","formatted":"$1,977","state":"Arizona"}],"key":"Arizona - Hospital Care"},{"values":[{"x":"1991","y":"75.149","char_label":"Medical Durables","formatted":"$75","state":"Arizona"},{"x":"1992","y":"74.274","char_label":"Medical Durables","formatted":"$74","state":"Arizona"},{"x":"1993","y":"75.386","char_label":"Medical Durables","formatted":"$75","state":"Arizona"},{"x":"1994","y":"78.569","char_label":"Medical Durables","formatted":"$79","state":"Arizona"},{"x":"1995","y":"78.198","char_label":"Medical Durables","formatted":"$78","state":"Arizona"},{"x":"1996","y":"81.391","char_label":"Medical Durables","formatted":"$81","state":"Arizona"},{"x":"1997","y":"87.423","char_label":"Medical Durables","formatted":"$87","state":"Arizona"},{"x":"1998","y":"91.587","char_label":"Medical Durables","formatted":"$92","state":"Arizona"},{"x":"1999","y":"94.886","char_label":"Medical Durables","formatted":"$95","state":"Arizona"},{"x":"2000","y":"102.082","char_label":"Medical Durables","formatted":"$102","state":"Arizona"},{"x":"2001","y":"101.378","char_label":"Medical Durables","formatted":"$101","state":"Arizona"},{"x":"2002","y":"109.155","char_label":"Medical Durables","formatted":"$109","state":"Arizona"},{"x":"2003","y":"112.882","char_label":"Medical Durables","formatted":"$113","state":"Arizona"},{"x":"2004","y":"119.023","char_label":"Medical Durables","formatted":"$119","state":"Arizona"},{"x":"2005","y":"128.285","char_label":"Medical Durables","formatted":"$128","state":"Arizona"},{"x":"2006","y":"136.411","char_label":"Medical Durables","formatted":"$136","state":"Arizona"},{"x":"2007","y":"150.599","char_label":"Medical Durables","formatted":"$151","state":"Arizona"},{"x":"2008","y":"147.515","char_label":"Medical Durables","formatted":"$148","state":"Arizona"},{"x":"2009","y":"143.027","char_label":"Medical Durables","formatted":"$143","state":"Arizona"}],"key":"Arizona - Medical Durables"}]');
+            }]);
+  </script>
+</body>
+</html>
