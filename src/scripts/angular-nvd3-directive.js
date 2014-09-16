@@ -17,9 +17,6 @@ angular.module('angularNvd3')
           config: '=?',   // global directive configuration, [optional]
         },
         link: function(scope, element) {
-          if (scope.data === undefined) {
-            throw Error('No data attribute on angular-nvd3');
-          }
 
           // Promise to run if library files load
           nvd3Service.nvd3().then(function(nvd3) {
@@ -398,6 +395,9 @@ angular.module('angularNvd3')
               }
             }, true);
             scope.$watch('config', function(config){
+              if (scope.data === undefined) {
+                  throw Error('No data attribute on angular-nvd3');
+              }
               scope._config = angular.extend(defaultConfig, config);
               scope.api.refresh();
             }, true);
