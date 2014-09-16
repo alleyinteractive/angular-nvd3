@@ -8,7 +8,9 @@ angular.module('d3', [])
       d.resolve(window.d3);
 
       return {
-        d3: function() { return d.promise; }
+        d3: function() {
+            return d.promise;
+        }
       };
     }]
   );

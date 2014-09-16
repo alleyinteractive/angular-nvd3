@@ -16,7 +16,9 @@ angular.module('angularNvd3')
 
       });
       return {
-        nvd3: function() { return d.promise; }
+        nvd3: function() {
+          return d.promise;
+        }
       };
     }]
   );
