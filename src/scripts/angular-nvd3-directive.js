@@ -395,9 +395,7 @@ angular.module('angularNvd3')
               }
             }, true);
             scope.$watch('config', function(config){
-              // if (scope.data === undefined) {
-              //     throw Error('No data attribute on angular-nvd3');
-              // }
+
               scope._config = angular.extend(defaultConfig, config);
               scope.api.refresh();
             }, true);
