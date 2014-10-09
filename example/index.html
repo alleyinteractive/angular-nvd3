@@ -107,8 +107,9 @@
                             }
                         },
                         postRender: {
-                            'test': function(item) {
-                                item.selectAll('.nv-point').attr('r', 8);
+                            'changeCircleRadius': function(item) {
+                                item.selectAll('.nv-point').attr('r', 10);
+                                item.selectAll('.nv-legend-symbol').attr('r', 10);
                             }
                         }
                     };
