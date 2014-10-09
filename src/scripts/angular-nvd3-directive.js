@@ -179,6 +179,7 @@ angular.module('angularNvd3')
                     scope.chart.update();
                   });
                   return scope.chart;
+
                 }, scope.options.chart.callback);
               }, //updateWithOptions()
 
@@ -194,7 +195,15 @@ angular.module('angularNvd3')
                     .attr('width', scope.options.chart.width)
                     .datum(data)
                     .transition().duration(scope.options.chart.transitionDuration)
-                    .call(scope.chart);
+                    .call(scope.chart)
+                    .call(function(item) {
+                      // Iterates through options.postRender and fires functions
+                      if (scope.options.postRender) {
+                        angular.forEach(scope.options.postRender, function(value, key) {
+                          value(item);
+                        });
+                      }
+                    });
 
                   // Set up svg height and width. It is important for all browsers...
                   d3.select(element[0]).select('svg')[0][0].style.height = scope.options.chart.height + 'px';
